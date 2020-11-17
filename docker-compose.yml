@@ -7,8 +7,6 @@ services:
     networks:
       - cs
     restart: always
-    volumes:
-      - cs-data:/data
     healthcheck:
       test: ['CMD-SHELL', 'pg_isready -U postgres']
       interval: 10s
@@ -23,7 +21,10 @@ services:
     command: yarn start
     restart: always
     environment:
-      PGHOST: pg
+      - PGHOST=pg
+      - DEFAULT_REALM_URL
+      - HUB_URL
+      - DEV_DIR
     ports:
       - '3000:3000'
       - '4200:4200'
@@ -37,5 +38,3 @@ services:
 networks:
   cs:
     driver: bridge
-volumes:
-  cs-data:
