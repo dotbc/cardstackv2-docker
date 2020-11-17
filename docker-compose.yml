@@ -23,6 +23,7 @@ services:
     environment:
       - PGHOST=pg
       - DEFAULT_REALM_URL
+      - META_REALM_URL
       - HUB_URL
       - DEV_DIR
     ports:
