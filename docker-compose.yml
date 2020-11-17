@@ -1,20 +1,41 @@
 version: '3.4'
 services:
+  pg:
+    image: cardstack/pg-test
+    ports:
+      - '5432:5432'
+    networks:
+      - cs
+    restart: always
+    volumes:
+      - cs-data:/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    expose:
+      - 5432
   cardstack:
     build:
       context: .
       dockerfile: Dockerfile
+    command: yarn start
+    restart: always
+    environment:
+      PGHOST: pg
     ports:
-      - 3000:3000
-      - 4200:4200
+      - '3000:3000'
+      - '4200:4200'
     networks:
       - cs
-  cardstack-pg:
-    image: cardstack/pg-test
-    ports:
-      - 5432:5432
-    networks:
-      - cs
+    links:
+      - pg
+    depends_on:
+      pg:
+        condition: service_healthy
 networks:
   cs:
     driver: bridge
+volumes:
+  cs-data:

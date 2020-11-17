@@ -10,4 +10,3 @@ WORKDIR /cardstack/packages/cardhost
 RUN npm install
 RUN npm run build
 ENV DEV_DIR=/fuga-v2-cards/cards
-RUN yarn start
