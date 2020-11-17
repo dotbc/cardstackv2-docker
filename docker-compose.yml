@@ -1,0 +1,20 @@
+version: '3.4'
+services:
+  cardstack:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+      - 4200:4200
+    networks:
+      - cs
+  cardstack-pg:
+    image: cardstack/pg-test
+    ports:
+      - 5432:5432
+    networks:
+      - cs
+networks:
+  cs:
+    driver: bridge
