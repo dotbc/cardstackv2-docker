@@ -1,0 +1,20 @@
+{
+  "data": {
+    "attributes": {
+      "csDescription": "This is the Bunny Records realm.",
+      "csId": "https://builder-hub.stack.cards/api/realms/bunny-records",
+      "csTitle": "Bunny Records Realm",
+      "remoteCacheDir": "bunny-records-realm",
+      "remoteUrl": "https://github.com/dotbc/fuga-v2-cards.git"
+    },
+    "relationships": {
+      "csAdoptsFrom": {
+        "data": {
+          "id": "https://base.cardstack.com/public/cards/git-realm",
+          "type": "cards"
+        }
+      }
+    },
+    "type": "cards"
+  }
+}
