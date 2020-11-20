@@ -1,13 +1,14 @@
 #!/bin/bash
-FILE=./initialized
+FILE=/cardstack/packages/cardhost/initialized
 if test -f "$FILE"; then
     yarn start
-    echo "\nAlready initialized, no need to bootstrap remote realm."
+    echo ""
+    echo "Already initialized, no need to bootstrap remote realm."
 else
-    echo "\nBootstrapping remote realm..."
+    echo ""
+    echo "Bootstrapping remote realm..."
     rm -rf /.cardstack
     yarn start-hub &
-    PID=$!
     sleep 10
     echo ""
     echo "Sending Bunny Records realm data..."
