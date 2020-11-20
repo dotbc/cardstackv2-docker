@@ -1,10 +1,16 @@
+#!/bin/bash
 FILE=./initialized
 if test -f "$FILE"; then
     yarn start
-    echo "Already initialized, no need to bootstrap remote realm."
+    echo "\nAlready initialized, no need to bootstrap remote realm."
 else
-    echo "Bootstrapping remote realm..."
-    yarn start-hub
+    echo "\nBootstrapping remote realm..."
+    rm -rf /.cardstack
+    yarn start-hub &
+    PID=$!
+    sleep 10
+    echo ""
+    echo "Sending Bunny Records realm data..."
     curl -d '{
     "data": {
         "attributes": {
@@ -24,8 +30,16 @@ else
         },
         "type": "cards"
     }
-    }' -H "Content-Type: application/vnd.api+json" -X POST http://cardstack:3000/api/realms/meta/cards
-    yarn start-hub
-    yarn start-ember
+    }' -H "Content-Type: application/vnd.api+json" -X POST http://localhost:3000/api/realms/meta/cards
+    echo ""
+    echo "Waiting on hub realm sync, this might take a minute..."
+    sleep 10
+    echo ""
+    echo "Killing the hub process..."
+    pkill -f node
+    sleep 30
+    echo ""
+    echo "Restarting whole hub for reindexing..."
+    yarn start
     touch initialized
 fi
