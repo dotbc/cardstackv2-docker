@@ -1,4 +1,4 @@
-version: '3.4'
+version: '3.8'
 services:
   pg:
     image: cardstack/pg-test
@@ -29,8 +29,6 @@ services:
       - '4200:4200'
     networks:
       - cs
-    links:
-      - pg
     depends_on:
       pg:
         condition: service_healthy
