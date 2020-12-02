@@ -3,7 +3,7 @@ services:
   pg:
     image: cardstack/pg-test
     ports:
-      - '5432:5432'
+      - '5432'
     networks:
       - cs
     restart: always
